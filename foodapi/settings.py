@@ -89,6 +89,20 @@ DATABASES = {
     }
 }
 
+REST_FRAMEWORK = {
+
+    # by default every user should be authenticated
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # specifies a local custom authentication class
+        'foodapi.apps.authentication.backends.JWTAuthentication',
+    )
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
