@@ -13,6 +13,7 @@ iniconfig==1.1.1
 numpy==1.21.2
 packaging==21.0
 pluggy==1.0.0
+psycopg2-binary==2.9.1
 py==1.10.0
 pycodestyle==2.8.0
 pycparser==2.20
