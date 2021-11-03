@@ -12,35 +12,35 @@ from .models import User
 from .serializers import LoginSerializer, RegistrationSerializer
 from .backends import JWTAuthentication
 
-class RegistrationAPIView(GenericAPIView):
+class RoleAPIView(GenericAPIView):
     """Register a new user with a role"""
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     renderer_classes = (RequestJSONRenderer,)
     serializer_class = RegistrationSerializer
 
     def post(self, request):
         """ Signup a new user """
         is_admin = request.user.is_superuser
-        if is_admin:
-            serializer = self.serializer_class(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
+        # if is_admin:
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-            if serializer.is_valid():
-                return_message = {
-                    'message':
-                    SUCCESS_MESSAGE.format("Your account has been created"),
-                    "data": serializer.data
-                }
-                return Response(return_message, status=status.HTTP_201_CREATED)
+        if serializer.is_valid():
             return_message = {
-                'message': serializer.errors
+                'message':
+                SUCCESS_MESSAGE.format("Your account has been created"),
+                "data": serializer.data
             }
-            return Response(return_message, status=status.HTTP_400_BAD_REQUEST)
+            return Response(return_message, status=status.HTTP_201_CREATED)
         return_message = {
-            'message':FORBIDDEN_MESSAGE
+            'message': serializer.errors
         }
-        return Response(return_message, status=status.HTTP_403_FORBIDDEN)
+        return Response(return_message, status=status.HTTP_400_BAD_REQUEST)
+    # return_message = {
+    #     'message':FORBIDDEN_MESSAGE
+    # }
+    # return Response(return_message, status=status.HTTP_403_FORBIDDEN)
 
 
 class LoginAPIView(GenericAPIView):

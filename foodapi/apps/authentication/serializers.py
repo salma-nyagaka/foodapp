@@ -69,11 +69,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
         model = User
         # List all of the fields that could possibly be included in a request
         # or response, including fields specified explicitly above.
-        fields = ['email', 'username', 'password']
+        fields = ['email', 'username', 'password', 'role']
 
     def create(self, validated_data):
-        # Use the `create_user` method we wrote earlier to create a new user.
-        user = User.objects.create_user(**validated_data)
+        if validated_data['role'] == 'ADMIN':
+            user = User.objects.create_user(**validated_data, is_superuser=True)  
         return user
 
 

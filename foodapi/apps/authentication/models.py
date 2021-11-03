@@ -8,6 +8,7 @@ from django.utils.translation import pgettext_lazy
 
 from ...helpers.push_id import PushID
 from ..models import BaseModel
+from ..roles.models import Role
 
 
 class UserManager(BaseUserManager):
@@ -16,7 +17,6 @@ class UserManager(BaseUserManager):
         """Create a user instance with the given email and password."""
         if username is None:
             raise TypeError('Users must have a username.')
-
 
         if email is None:
             raise TypeError('Users must have an email address.')
@@ -48,8 +48,19 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModel):
+
+    ROLES = (
+        ('ADMIN', 'admin'),
+        ('FOOD_ATTENDANT', 'customer_care'),
+        ('CUSTOMER_CARE', 'customer_care'),
+        ('NORMAL_USER', 'normal_user'),
+    )
+
+    role = models.CharField(max_length=50, choices = ROLES, null=True)
+
     username = models.CharField(db_index=True, max_length=255, unique=True)
     email = models.EmailField(db_index=True, unique=True)
+    # role =  models.ForeignKey(Role,  on_delete=models.CASCADE)
 
     # The `USERNAME_FIELD` property tells us which field we will use to log in.
     # In this case, we want that to be the username field.
@@ -59,12 +70,15 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     # Tells Django that the UserManager class defined above should manage
     # objects of this type.
     objects = UserManager()
+
     def save(self, *args, **kwargs):
         push_id = PushID()
         # This to check if it creates a new or updates an old instance
         if not self.id:
             self.id = push_id.next_id()
         super(User, self).save()
+    
+
     class Meta:
         permissions = (
             ("manage_users",
@@ -84,7 +98,6 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         This string is used when a `User` is printed in the console.
         """
         return self.email
-
 
     @staticmethod
     def get_user(email):
