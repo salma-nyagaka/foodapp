@@ -27,14 +27,12 @@ def get_user_order_object(params, user_id):
     try:
         if 'all_orders' in params:
             menu_obj = Order.objects.filter(user_id=user_id)
-            import pdb
-            pdb.set_trace()
             return menu_obj
         elif 'pending_orders' in params:
-            menu_obj = Order.objects.filter(user_id=user_id).filter(status=False)
+            menu_obj = Order.objects.filter(
+                user_id=user_id).filter(status=False)
             return menu_obj
     except Exception as e:
         raise ValidationError({
             "message": e
-        }) 
-
+        })
