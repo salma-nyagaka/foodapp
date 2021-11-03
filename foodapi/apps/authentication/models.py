@@ -50,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     ROLES = (
         ('ADMIN', 'admin'),
-        ('FOOD_ATTENDANT', 'customer_care'),
+        ('FOOD_ATTENDANT', 'foo_attendant'),
         ('CUSTOMER_CARE', 'customer_care'),
         ('NORMAL_USER', 'normal_user'),
     )

@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate
 
 from rest_framework import serializers, validators
+from rest_framework.fields import USE_READONLYFIELD
 from rest_framework.validators import UniqueValidator
 
 from foodapi.apps.authentication.backends import \
@@ -126,3 +127,11 @@ class LoginSerializer(serializers.Serializer):
             'email': user.email,
             'username': user.username
         }
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """ Serialize user's data"""
+
+    class Meta:
+        model = User
+        fields = ('__all__')
