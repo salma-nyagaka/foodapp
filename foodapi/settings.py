@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'foodapi.apps.authentication',
-    'foodapi.apps.roles'
 ]
 
 AUTH_USER_MODEL = 'authentication.User'
