@@ -8,7 +8,6 @@ from django.utils.translation import pgettext_lazy
 
 from ...helpers.push_id import PushID
 from ..models import BaseModel
-from ..roles.models import Role
 
 
 class UserManager(BaseUserManager):
