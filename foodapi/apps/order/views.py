@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from ...helpers.constants import SUCCESS_MESSAGE, FORBIDDEN_MESSAGE
 from ...helpers.renderers import RequestJSONRenderer
-from .serializers import SingleOrderSerializer, SingleDetailsOrderSerializer
+from .serializers import SingleOrderSerializer, SingleDetailsOrderSerializer, OrderSerializer
 from .models import Order
 from .helpers.get_order_object import get_order_object, get_user_order_object
 
@@ -14,7 +14,7 @@ class OrderAPIView(generics.GenericAPIView):
     """ Class to add order items """
     permission_classes = (IsAuthenticated,)
     renderer_classes = (RequestJSONRenderer,)
-    serializer_class = SingleOrderSerializer
+    serializer_class = OrderSerializer
 
     def post(self, request):
         """ Method to add a new order """
