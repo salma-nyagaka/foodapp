@@ -47,8 +47,8 @@ class JWTAuthentication(TokenAuthentication):
     def authenticate_credentials(self, key):
         try:
             # decode the payload and get the user
-            payload = jwt.decode(key, settings.SECRET_KEY)
-            user = get_user_model().objects.get(username=payload['userdata']['username'])   # noqa E501
+            payload = jwt.decode(key, settings.SECRET_KEY, algorithms=["HS256"])
+            user = get_user_model().objects.get(username=payload['userdata']['username'])
         except (jwt.DecodeError, get_user_model().DoesNotExist):
             raise exceptions.AuthenticationFailed('Invalid token')
         except jwt.ExpiredSignatureError:

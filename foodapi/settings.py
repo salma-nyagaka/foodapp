@@ -90,18 +90,17 @@ DATABASES = {
     }
 }
 
-# REST_FRAMEWORK = {
+REST_FRAMEWORK = {
 
-#     # by default every user should be authenticated
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
 
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         # specifies a local custom authentication class
-#         'foodapi.apps.authentication.backends.JWTAuthentication',
-#     )
-# }
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # specifies a local custom authentication class
+        'foodapi.apps.authentication.backends.JWTAuthentication',
+    )
+}
 
 
 # Password validation
