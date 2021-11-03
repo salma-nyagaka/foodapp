@@ -12,7 +12,7 @@ from .models import User
 from .serializers import LoginSerializer, RegistrationSerializer
 from .backends import JWTAuthentication
 
-class RolesAPIView(GenericAPIView):
+class RegistrationAPIView(GenericAPIView):
     """Register a new user with a role"""
     permission_classes = (IsAuthenticated,)
     renderer_classes = (RequestJSONRenderer,)

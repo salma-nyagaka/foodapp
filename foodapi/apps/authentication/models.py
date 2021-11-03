@@ -48,18 +48,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModel):
-    ADMIN = 'admin'
-    CUSTOMER_CARE = 'customer_care'
-    FOOD_ATTENDANT = 'food_attendant'
-    
-    ROLE_CHOICES = (
-        (ADMIN, 'Admin'),
-        (CUSTOMER_CARE, 'Customer Care'),
-        (FOOD_ATTENDANT, 'Food attendant'),
-    )
-
     username = models.CharField(db_index=True, max_length=255, unique=True)
-    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=True, null=True)
     email = models.EmailField(db_index=True, unique=True)
 
     # The `USERNAME_FIELD` property tells us which field we will use to log in.

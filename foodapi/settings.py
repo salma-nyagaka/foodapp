@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'foodapi.apps.authentication'
+    'foodapi.apps.authentication',
+    'foodapi.apps.roles'
 ]
 
 AUTH_USER_MODEL = 'authentication.User'
@@ -89,18 +90,18 @@ DATABASES = {
     }
 }
 
-REST_FRAMEWORK = {
+# REST_FRAMEWORK = {
 
-    # by default every user should be authenticated
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+#     # by default every user should be authenticated
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
 
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        # specifies a local custom authentication class
-        'foodapi.apps.authentication.backends.JWTAuthentication',
-    )
-}
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         # specifies a local custom authentication class
+#         'foodapi.apps.authentication.backends.JWTAuthentication',
+#     )
+# }
 
 
 # Password validation
