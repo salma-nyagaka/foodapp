@@ -63,7 +63,7 @@ class AllOrdersPIView(generics.RetrieveAPIView):
     def get(self, request):
         """ Method to get all orders"""
         user_role = request.user.role
-        if user_role == 'FOOD_ATTENDANT':
+        if user_role == 'FOOD_ATTENDANT' or 'ADMIN':
             data = get_order_object()
             serializer = self.serializer_class(data, many=True)
             return_message = {
