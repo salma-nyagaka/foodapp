@@ -1,22 +1,15 @@
 language: python
-python:
-- "3.7"
-# setup environment
-env:
-- DJANGO_VERSION=3.1.3
-- DJANGO_SETTINGS_MODULE='foodapi.settings'
-# install dependencies
-install:
-- pip install -r requirements.txt
-- pip install coveralls
 
-# before_script:
-#   - createdb foodapi
-# run test scripts
+python:
+    - "3.7"
+env:
+    - SECRET_KEY='TEST'
+services:
+   - postgresql
+install:
+    - pipenv install
+
 script:
-- ./manage.py makemigrations
-- ./manage.py migrate
-- pytest  
-# save coverage
+    -  pytest
 after_success:
-  - "coveralls"
+    - codecov
