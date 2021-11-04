@@ -10,8 +10,8 @@ install:
 - pip install -r requirements.txt
 - pip install coveralls
 
-before_script:
-  - createdb foodapi
+# before_script:
+#   - createdb foodapi
 # run test scripts
 script:
 - ./manage.py makemigrations
