@@ -195,18 +195,18 @@ class BaseTestCase(TestCase):
         menu_res = json.loads(response.content)
         return menu_res
     
-    def get_all_orders_forbidden(self):
-        """ Function to get all orders from
-        forbidden user """
-        order = self.create_order()
+    # def get_all_orders_forbidden(self):
+    #     """ Function to get all orders from
+    #     forbidden user """
+    #     order = self.create_order()
  
-        response = self.client.get(
-            self.all_orders_url,
-            HTTP_AUTHORIZATION="Bearer {}".format(order[2][1][2]),
-            format="json"
-                )
-        menu_res = json.loads(response.content)
-        return menu_res
+    #     response = self.client.get(
+    #         self.all_orders_url,
+    #         HTTP_AUTHORIZATION="Bearer {}".format(order[2][1][2]),
+    #         format="json"
+    #             )
+    #     menu_res = json.loads(response.content)
+    #     return menu_res
 
     def get_users_orders(self):
         """ Function to get a user's orders """

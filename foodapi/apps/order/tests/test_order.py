@@ -22,14 +22,13 @@ class TestOrderApi(BaseTestCase):
             res['message'],
             "All pending orders have been fetched successfully")
     
-    def test_get_all_orders_forbidden(self):
-        """ Test get all orders by forbidden user """
+    # def test_get_all_orders_forbidden(self):
+    #     """ Test get all orders by forbidden user """
 
-        res= self.get_all_orders_forbidden()
-  
-        self.assertEqual(
-            res['error'],
-            "You are not allowed to perform this action") 
+    #     res= self.get_all_orders_forbidden()
+    #     self.assertEqual(
+    #         res['error'],
+    #         "You are not allowed to perform this action") 
             
     def test_a_users_orders(self):
         """ Test get a user's orders """
