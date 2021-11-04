@@ -6,6 +6,9 @@ env:
     - SECRET_KEY='TEST'
 services:
    - postgresql
+before_script:
+  - psql -c 'create database foodapi;' -U postgres
+
 install:
    - pip install -r requirements.txt
    - pip install coveralls
