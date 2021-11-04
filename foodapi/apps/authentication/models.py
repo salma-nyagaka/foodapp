@@ -6,7 +6,6 @@ from django.db import models
 from django.db.models import Q
 from django.utils.translation import pgettext_lazy
 
-from ...helpers.push_id import PushID
 from ..models import BaseModel
 
 
@@ -49,13 +48,6 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     # objects of this type.
     objects = UserManager()
 
-    def save(self, *args, **kwargs):
-        push_id = PushID()
-        # This to check if it creates a new or updates an old instance
-        if not self.id:
-            self.id = push_id.next_id()
-        super(User, self).save()
-    
 
     class Meta:
         permissions = (
