@@ -53,6 +53,4 @@ class JWTAuthentication(TokenAuthentication):
             raise exceptions.AuthenticationFailed('Invalid token')
         except jwt.ExpiredSignatureError:
             raise exceptions.AuthenticationFailed('Token has expired')
-        if not user.is_active:
-            raise exceptions.AuthenticationFailed('User inactive or deleted')
         return user, payload

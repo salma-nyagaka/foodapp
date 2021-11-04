@@ -4,8 +4,6 @@ from rest_framework import serializers, validators
 from rest_framework.fields import USE_READONLYFIELD
 from rest_framework.validators import UniqueValidator
 
-from foodapi.apps.authentication.backends import \
-    JWTAuthentication
 from .models import User
 
 
@@ -108,15 +106,6 @@ class LoginSerializer(serializers.Serializer):
                 'them '
             )
 
-        # Django provides a flag on our `User` model called `is_active`. The
-        # purpose of this flag to tell us whether the user has been banned
-        # or otherwise deactivated. This will almost never be the case, but
-        # it is worth checking for. Raise an exception in this case.
-        if not user.is_active:
-            raise serializers.ValidationError(
-                'Your account is inactive. Kindly check your email for an '
-                'activation link to activate '
-            )
 
         """
         The `validate` method should return a dictionary of validated data.
