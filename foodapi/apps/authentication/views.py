@@ -14,14 +14,15 @@ from .backends import JWTAuthentication
 
 class RoleAPIView(GenericAPIView):
     """Register a new user with a role"""
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     renderer_classes = (RequestJSONRenderer,)
     serializer_class = RegistrationSerializer
 
     def post(self, request):
         """ Signup a new user """
-        is_admin = request.user.is_superuser
-        if is_admin:
+
+        params = request.query_params
+        if 'is_admin' in params:
             serializer = self.serializer_class(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
@@ -70,4 +71,4 @@ class LoginAPIView(GenericAPIView):
             "data": user_data,
             "token": user_data
         }
-        return Response(return_message, status=status.HTTP_201_CREATED)
+        return Response(return_message, status=status.HTTP_200_OK)

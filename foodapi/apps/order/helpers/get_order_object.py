@@ -5,18 +5,12 @@ from ....helpers.serialization_errors import error_dict
 from ..models import Order
 
 
-def get_order_object(params):
+def get_order_object():
     """
-    Function that checks if a specific order item exists
+    Function that returns all order items
     """
-    if params:
-        try:
-            menu_obj = Order.objects.get(id=id)
-            return menu_obj
-        except Order.DoesNotExist:
-            raise ValidationError({
-                "message": error_dict['does_not_exist'].format("Order item")}
-            )
+    menu_obj = Order.objects.filter(status=False)
+    return menu_obj
 
 
 def get_user_order_object(params, user_id):
@@ -24,7 +18,7 @@ def get_user_order_object(params, user_id):
     Function that returns user's orders
     """
 
-    try:
+    if params:
         if 'all_orders' in params:
             menu_obj = Order.objects.filter(user_id=user_id)
             return menu_obj
@@ -32,7 +26,8 @@ def get_user_order_object(params, user_id):
             menu_obj = Order.objects.filter(
                 user_id=user_id).filter(status=False)
             return menu_obj
-    except Exception as e:
+    else:
         raise ValidationError({
-            "message": e
+            "message": "Kindly pass 'all_orders' or 'pending_orders' in params"
         })
+

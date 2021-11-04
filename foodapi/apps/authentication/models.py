@@ -14,11 +14,6 @@ class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None, is_staff=False,
                     **extra_fields):
         """Create a user instance with the given email and password."""
-        if username is None:
-            raise TypeError('Users must have a username.')
-
-        if email is None:
-            raise TypeError('Users must have an email address.')
 
         email = self.normalize_email(email)
 
@@ -30,28 +25,12 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, username, email, password):
-        """
-        Create and return a `User` with superuser rights.
-        Superuser powers means that this use is an admin that can do anything
-        they want.
-        """
-        if password is None:
-            raise TypeError('Superusers must have a password.')
-
-        user = self.create_user(username, email, password)
-        user.is_superuser = True
-        user.save()
-
-        return user
-
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     ROLES = (
         ('ADMIN', 'admin'),
         ('FOOD_ATTENDANT', 'foo_attendant'),
-        ('CUSTOMER_CARE', 'customer_care'),
         ('NORMAL_USER', 'normal_user'),
     )
 
@@ -91,26 +70,11 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
              ),
         )
 
-    def __str__(self):
-        """
-        Returns a string representation of this `User`.
-        This string is used when a `User` is printed in the console.
-        """
-        return self.email
 
     @staticmethod
     def get_user(email):
         try:
             user = User.objects.get(email=email)
-            return user
-
-        except Exception:
-            return False
-
-    @staticmethod
-    def get_user_by_id(user_id):
-        try:
-            user = User.objects.get(id=user_id)
             return user
 
         except Exception:

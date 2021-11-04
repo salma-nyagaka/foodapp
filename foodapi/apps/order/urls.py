@@ -3,8 +3,8 @@ from .views import OrderAPIView, UsersOrdersPIView, SingleOrderAPIView, AllOrder
 
 urlpatterns = [
     path('', OrderAPIView.as_view(), name='order'),
+    path('all', AllOrdersPIView.as_view(), name='all_orders'),
     path('user', UsersOrdersPIView.as_view(), name='user_orders'),
     path('<str:pk>', SingleOrderAPIView.as_view(), name='update_single_order_item'),
-    path('all', AllOrdersPIView.as_view(), name='all_orders'),
 
 ]
