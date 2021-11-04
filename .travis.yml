@@ -13,7 +13,6 @@ install:
 # run test scripts
 script:
 - pytest
-- pytest --cov=foodapi/app/
   
 # save coverage
 after_success:
