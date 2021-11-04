@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'foodapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'stemletics',
-        'USER': 'stemleticsadmin',
-        'PASSWORD': 'changeme',
-        'HOST': '127.0.0.1', # set in docker-compose.yml
-        'PORT': 5432 # default postgres port
+        'NAME': os.getenv("DB_NAME", 'foodapi'),
+        'HOST': os.getenv("DB_HOST", 'localhost'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'foodapi'),
+        'USER': os.getenv('DB_USER', 'postgres'),
+        'PORT': os.getenv('DB_PORT', '5432')
 
     }
 }

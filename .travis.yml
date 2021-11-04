@@ -10,10 +10,13 @@ install:
 - pip install -r requirements.txt
 - pip install coveralls
 
+before_script:
+  - createdb foodapi
 # run test scripts
 script:
-- pytest
-  
+- ./manage.py makemigrations
+- ./manage.py migrate
+- pytest  
 # save coverage
 after_success:
   - "coveralls"
