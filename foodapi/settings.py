@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'foodapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'foodapi',
-        'PASSWORD': 'foodapi',
-        'USER': 'foodapi',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': os.getenv('DB_NAME'),
+        'PASSWORD': os.getenv('DB_PASSWORD', ''),
+        'HOST': os.getenv('DB_HOST'),
+        'USER': os.getenv('DB_USER'),
+        'PORT': os.getenv('HOST'),
 
     }
 }
