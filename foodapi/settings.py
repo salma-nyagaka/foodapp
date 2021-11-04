@@ -84,8 +84,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'foodapi',
         'PASSWORD': 'foodapi',
-        'HOST': 'localhost',
         'USER': 'foodapi',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
 
     }
