@@ -3,7 +3,7 @@
 
 
 ## Food app
-A FOod Menu API.
+A Food Menu API.
 
 ### Description
 A Django web application that allowes admin to create users and menus, food attendant to update order status and users to make orders
