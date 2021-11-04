@@ -22,17 +22,13 @@ class OrderAPIView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        if serializer.is_valid():
-            return_message = {
-                'message':
-                SUCCESS_MESSAGE.format("Your order has been created"),
-                "data": serializer.data
-            }
-            return Response(return_message, status=status.HTTP_201_CREATED)
+        # if serializer.is_valid():
         return_message = {
-            'message': serializer.errors
+            'message':
+            SUCCESS_MESSAGE.format("Your order has been created"),
+            "data": serializer.data
         }
-        return Response(return_message, status=status.HTTP_400_BAD_REQUEST)
+        return Response(return_message, status=status.HTTP_201_CREATED)
 
 
 class UsersOrdersPIView(generics.RetrieveAPIView):
@@ -58,33 +54,31 @@ class UsersOrdersPIView(generics.RetrieveAPIView):
 
 
 class AllOrdersPIView(generics.RetrieveAPIView):
-    """ Class to get a user's orders"""
+    """ Class to get all orders"""
     permission_classes = (IsAuthenticated,)
     renderer_classes = (RequestJSONRenderer,)
     serializer_class = SingleOrderSerializer
 
 
     def get(self, request):
-        """ Method to get a user's orders"""
+        """ Method to get all orders"""
         user_role = request.user.role
         if user_role == 'FOOD_ATTENDANT':
-            params = request.query_params
-            data = get_order_object(params)
-         
-
+            data = get_order_object()
+            serializer = self.serializer_class(data, many=True)
             return_message = {
                 'message':
-                SUCCESS_MESSAGE.format("All orders have been fetched"),
-                "data": data
+                SUCCESS_MESSAGE.format("All pending orders have been fetched"),
+                "data": serializer.data
             }
-            return Response(return_message, status=status.HTTP_201_CREATED)
+            return Response(return_message, status=status.HTTP_200_OK)
         return_message = {
             'message':FORBIDDEN_MESSAGE
         }
         return Response(return_message, status=status.HTTP_403_FORBIDDEN)
 
 class SingleOrderAPIView(generics.RetrieveAPIView):
-    """ Class to get, update an order status"""
+    """ Class to update an order status"""
     serializer_class = SingleDetailsOrderSerializer
     permission_classes = (IsAuthenticated,)
     # queryset = Order.objects.all()
@@ -99,7 +93,7 @@ class SingleOrderAPIView(generics.RetrieveAPIView):
 
             return_message = {
                 'message':
-                SUCCESS_MESSAGE.format("Menu item has been fetched"),
+                SUCCESS_MESSAGE.format("Menu item has been updated"),
                 "data": "k"
             }
             return Response(return_message, status=status.HTTP_201_CREATED)

@@ -73,6 +73,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         if validated_data['role'] == 'ADMIN':
             user = User.objects.create_user(**validated_data, is_superuser=True)  
+        else:
+            user = User.objects.create_user(**validated_data)
         return user
 
 

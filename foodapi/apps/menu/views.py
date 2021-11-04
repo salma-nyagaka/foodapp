@@ -89,17 +89,13 @@ class SingleMenuAPIView(generics.RetrieveAPIView):
             serializer = self.serializer_class(
                 question_obj, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)
-            if serializer.is_valid():
-                serializer.save()
-                return_message = {
-                    'message': SUCCESS_MESSAGE.format("The menu item has been updated"),
-                    "data": serializer.data
-                }
-                return Response(return_message, status=status.HTTP_200_OK)
+            serializer.save()
             return_message = {
-                'message': serializer.errors
+                'message': SUCCESS_MESSAGE.format("The menu item has been updated"),
+                "data": serializer.data
             }
-            return Response(return_message, status=status.HTTP_400_BAD_REQUEST)
+            return Response(return_message, status=status.HTTP_200_OK)
+            
         return_message = {
             'message':FORBIDDEN_MESSAGE
         }

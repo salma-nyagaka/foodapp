@@ -1,9 +1,9 @@
 from rest_framework import status
 
 from .base_file import BaseTestCase
+from foodapi.apps.menu.models import Menu
 
-
-class TestAuthenticationApi(BaseTestCase):
+class TestMenuApi(BaseTestCase):
     """ Class test the menu"""
 
     def test_create_menu(self):
@@ -15,16 +15,22 @@ class TestAuthenticationApi(BaseTestCase):
             "Menu has been created successfully")
 
     
-    def test_create_menu_n_data(self):
+    def test_create_menu_no_data(self):
         """ Test creation of a menu with no data"""
    
         response = self.create_menu_no_data()
-        # import pdb
-        # pdb.set_trace()
         self.assertEqual(
             response['error'],
            {'name': ['This field may not be blank.'], 'description': ['This field may not be blank.']})
 
+    # def test_get_all_menu_forbidden(self):
+    #     """ Test create menu by forbidden user """
+
+    #     res= self.create_menu_forbidden()
+    #     self.assertEqual(
+    #         res[0]['error'],
+    #         "You are not allowed to perform this action") 
+    
     def test_menu(self):
         """ Test get all menu items """
 
@@ -32,8 +38,7 @@ class TestAuthenticationApi(BaseTestCase):
         self.assertEqual(
             response['message'],
             "All menu items have been fetched successfully")
-
-    
+      
 
     def test_get_single_menu(self):
         """ Test get single menu item """
@@ -43,6 +48,16 @@ class TestAuthenticationApi(BaseTestCase):
         self.assertEqual(
             response['message'],
             "Menu item has been fetched successfully")
+
+
+    def test_get_nonexistant_single_menu(self):
+        """ Test get nonexistant single menu item """
+
+        response = self.get_menu_does_not_exist()
+     
+        self.assertEqual(
+            response['message'],
+            "Menu item does not exist")
 
     def test_update_single_menu(self):
         """ Test to update a menu item """
