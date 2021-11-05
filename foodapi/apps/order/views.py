@@ -5,8 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 
 from ...helpers.constants import SUCCESS_MESSAGE, FORBIDDEN_MESSAGE
 from ...helpers.renderers import RequestJSONRenderer
+from ...helpers.validate_user import validate_attendant, validate_attendant_or_admin
 from .serializers import SingleOrderSerializer, SingleDetailsOrderSerializer, OrderSerializer
-from .models import Order
 from .helpers.get_order_object import get_order_object, get_user_order_object
 
 
@@ -63,19 +63,15 @@ class AllOrdersPIView(generics.RetrieveAPIView):
     def get(self, request):
         """ Method to get all orders"""
         user_role = request.user.role
-        if user_role == 'FOOD_ATTENDANT' or 'ADMIN':
-            data = get_order_object()
-            serializer = self.serializer_class(data, many=True)
-            return_message = {
-                'message':
-                SUCCESS_MESSAGE.format("All pending orders have been fetched"),
-                "data": serializer.data
-            }
-            return Response(return_message, status=status.HTTP_200_OK)
+        validate_attendant(user_role)
+        data = get_order_object()
+        serializer = self.serializer_class(data, many=True)
         return_message = {
-            'message':FORBIDDEN_MESSAGE
+            'message':
+            SUCCESS_MESSAGE.format("All pending orders have been fetched"),
+            "data": serializer.data
         }
-        return Response(return_message, status=status.HTTP_403_FORBIDDEN)
+        return Response(return_message, status=status.HTTP_200_OK)
 
 class SingleOrderAPIView(generics.RetrieveAPIView):
     """ Class to update an order status"""
@@ -86,18 +82,14 @@ class SingleOrderAPIView(generics.RetrieveAPIView):
     def update(self, request, pk):
         """ Method to update order status by food attendant"""
         user_role = request.user.role
-        if user_role == 'FOOD_ATTENDANT':
-            data = get_order_object(pk)
-            serializer = self.serializer_class(data, partial=True)
-            serializer.save()
+        validate_attendant(user_role)
+        data = get_order_object(pk)
+        serializer = self.serializer_class(data, partial=True)
+        serializer.save()
 
-            return_message = {
-                'message':
-                SUCCESS_MESSAGE.format("Menu item has been updated"),
-                "data": "k"
-            }
-            return Response(return_message, status=status.HTTP_201_CREATED)
         return_message = {
-            'message':FORBIDDEN_MESSAGE
+            'message':
+            SUCCESS_MESSAGE.format("Menu item has been updated"),
+            "data": "k"
         }
-        return Response(return_message, status=status.HTTP_403_FORBIDDEN)
+        return Response(return_message, status=status.HTTP_201_CREATED)

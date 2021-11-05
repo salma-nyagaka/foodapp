@@ -9,8 +9,9 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
-from ...helpers.constants import SUCCESS_MESSAGE, FORBIDDEN_MESSAGE
+from ...helpers.constants import SUCCESS_MESSAGE
 from ...helpers.renderers import RequestJSONRenderer
+from ...helpers.validate_user import validate_admin
 from .serializers import MenuSerializer, SingleMenuSerializer
 from .models import Menu
 from .helpers.get_menu_object import get_menu_object
@@ -25,26 +26,18 @@ class MenuAPIView(generics.GenericAPIView):
     def post(self, request):
         """ Method to add a new menu """
         is_admin = request.user.is_superuser
-        if is_admin:
-            serializer = self.serializer_class(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
+        validate_admin(is_admin)
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-            if serializer.is_valid():
-                return_message = {
-                    'message':
-                    SUCCESS_MESSAGE.format("Menu has been created"),
-                    "data": serializer.data
-                }
-                return Response(return_message, status=status.HTTP_201_CREATED)
-            return_message = {
-                'message': serializer.errors
-            }
-            return Response(return_message, status=status.HTTP_400_BAD_REQUEST)
         return_message = {
-            'message':FORBIDDEN_MESSAGE
+            'message':
+            SUCCESS_MESSAGE.format("Menu has been created"),
+            "data": serializer.data
         }
-        return Response(return_message, status=status.HTTP_403_FORBIDDEN)
+        return Response(return_message, status=status.HTTP_201_CREATED)
+
 
 class AllMenuItemsPIView(generics.RetrieveAPIView):
     """ Class to get all menu items"""
@@ -84,35 +77,28 @@ class SingleMenuAPIView(generics.RetrieveAPIView):
     def put(self, request, menu_id):
         """ Method to update a single menu item """
         is_admin = request.user.is_superuser
-        if is_admin:
-            question_obj = get_menu_object(menu_id)
-            serializer = self.serializer_class(
-                question_obj, data=request.data, partial=True)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            return_message = {
-                'message': SUCCESS_MESSAGE.format("The menu item has been updated"),
-                "data": serializer.data
-            }
-            return Response(return_message, status=status.HTTP_200_OK)
-            
+        validate_admin(is_admin)
+        question_obj = get_menu_object(menu_id)
+        serializer = self.serializer_class(
+            question_obj, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return_message = {
-            'message':FORBIDDEN_MESSAGE
+            'message': SUCCESS_MESSAGE.format("The menu item has been updated"),
+            "data": serializer.data
         }
-        return Response(return_message, status=status.HTTP_403_FORBIDDEN)
+        return Response(return_message, status=status.HTTP_200_OK)
+            
 
     def delete(self, request, menu_id):
         """ Method to delete a single menu item """
+
         is_admin = request.user.is_superuser
-        if is_admin:
-            data = Menu.objects.get(id=menu_id)
-            data.delete()
-            return_message = {
-                'message':
-                SUCCESS_MESSAGE.format("Menu item has been deleted")
-            }
-            return Response(return_message, status=status.HTTP_201_CREATED)
+        validate_admin(is_admin)
+        data = Menu.objects.get(id=menu_id)
+        data.delete()
         return_message = {
-            'message':FORBIDDEN_MESSAGE
+            'message':
+            SUCCESS_MESSAGE.format("Menu item has been deleted")
         }
-        return Response(return_message, status=status.HTTP_403_FORBIDDEN)
+        return Response(return_message, status=status.HTTP_201_CREATED)
