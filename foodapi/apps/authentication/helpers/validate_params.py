@@ -16,5 +16,5 @@ def validate_parans(params):
             )
     else:
         raise ValidationError({
-            "message": error_dict['not_allowed']}
+            "message": 'Kindly pass is_admin as key and value in params'}
         )

@@ -25,7 +25,15 @@ class TestAuthenticationApi(BaseTestCase):
         self.assertEqual(data.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             response['error'],
-            "You are now allowed to view this resource")
+            "Kindly pass is_admin as key and value in params")
+
+    def test_invalid_admin_params(self):
+        """ Test create user with invalid params"""
+        data = self.invalid_params()
+        response = json.loads(data.content)
+        self.assertEqual(   
+            response['error'],
+            "You are not allowed to view this resource")
 
     def test_registration_blank_credentials(self):
         """ Test registration of a new user with no data """
@@ -90,6 +98,15 @@ class TestAuthenticationApi(BaseTestCase):
         self.assertEqual(
             response['message'],
             "User details have been fetched successfully")
+
+    def test_get_nonexistant_user(self):
+        """ Test to get a user who does not exist"""
+        response = self.get_nonexistant_user()
+
+        self.assertEqual(
+            response['message'],
+            "User does not exist")
+
 
     def test_delete_one_user(self):
         """ Test to delete a single user """

@@ -15,6 +15,7 @@ from .serializers import LoginSerializer, RegistrationSerializer, UserSerializer
 from .backends import JWTAuthentication
 from .helpers.get_user_obj import get_user_object
 from .helpers.validate_params import validate_parans
+
 class RoleAPIView(GenericAPIView):
     """Register a new user with a role"""
     # permission_classes = (IsAuthenticated,)
@@ -30,18 +31,12 @@ class RoleAPIView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        if serializer.is_valid():
-            return_message = {
-                'message':
-                SUCCESS_MESSAGE.format("Your account has been created"),
-                "data": serializer.data
-            }
-            return Response(return_message, status=status.HTTP_201_CREATED)
         return_message = {
-            'message': serializer.errors
+            'message':
+            SUCCESS_MESSAGE.format("Your account has been created"),
+            "data": serializer.data
         }
-        return Response(return_message, status=status.HTTP_400_BAD_REQUEST)
-
+        return Response(return_message, status=status.HTTP_201_CREATED)
 
 class LoginAPIView(GenericAPIView):
     permission_classes = (AllowAny,)
