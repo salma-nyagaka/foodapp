@@ -13,6 +13,8 @@ class BaseTestCase(TestCase):
         # Access urls for testing
         self.registration_url = reverse("user_registration")
         self.login_url = reverse("user_login")
+        self.all_users_url = reverse("all_users")
+
 
         # Create dummy data for testing
         self.registration_data = {
@@ -56,6 +58,16 @@ class BaseTestCase(TestCase):
 
         return response
 
+    def unauthorized_user(self):
+        """ Create a user to be used by some test cases"""
+        response = self.client.post(
+            self.registration_url,
+            self.registration_data,
+            format="json"
+        )
+
+        return response
+
     def create_user_no_data(self):
         """ Create a user to be used by some test cases"""
         response = self.client.post(
@@ -75,4 +87,64 @@ class BaseTestCase(TestCase):
         user = User.objects.get(email=data['data']['email'])
 
         return user
+
+    def login_user(self):
+        """ Test to log in a user"""
+        response = self.create_user()
+
+        response = self.client.post(
+            self.login_url,
+            self.login_data,
+            format="json"
+        )
+
+        return response
+
+    def get_all_users(self):
+        """ Function to delete a user """
+
+        response = self.login_user()
+
+        data = json.loads(response.content)
+        response = self.client.get(
+            self.all_users_url,
+            HTTP_AUTHORIZATION="Bearer {}".format(data['data']['token']),
+            format="json"
+        )
+        menu_res = json.loads(response.content)
+        return menu_res
+
+    def get_one_user(self):
+        """ Function to get a user """
+
+        login_res = self.login_user()
+        token = json.loads(login_res.content)
+        data = User.objects.all().first()
+
+        self.single_user_url =  reverse("single_user", kwargs={"user_id": data.id})
+
+        response = self.client.get(
+            self.single_user_url,
+            HTTP_AUTHORIZATION="Bearer {}".format(token['data']['token']),
+            format="json"
+        )
+        menu_res = json.loads(response.content)
+        return menu_res
+
+    def delete_one_user(self):
+        """ Function to delete a user """
+
+        login_res = self.login_user()
+        token = json.loads(login_res.content)
+        data = User.objects.all().first()
+
+        self.single_user_url =  reverse("single_user", kwargs={"user_id": data.id})
+
+        response = self.client.delete(
+            self.single_user_url,
+            HTTP_AUTHORIZATION="Bearer {}".format(token['data']['token']),
+            format="json"
+        )
+        menu_res = json.loads(response.content)
+        return menu_res
 
