@@ -61,7 +61,7 @@ class AllOrdersPIView(generics.RetrieveAPIView):
     def get(self, request):
         """ Method to get all orders"""
         user_role = request.user.role
-        validate_attendant(user_role)
+        validate_attendant_or_admin(user_role)
         data = get_order_object()
         serializer = self.serializer_class(data, many=True)
         return_message = {

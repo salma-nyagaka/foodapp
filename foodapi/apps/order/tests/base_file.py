@@ -183,7 +183,6 @@ class BaseTestCase(TestCase):
     def get_all_orders(self):
         """ Function to get all orders made"""
         order = self.create_order()
-
         response = self.client.get(
             self.all_orders_url,
             HTTP_AUTHORIZATION="Bearer {}".format(order[2][1][1]),

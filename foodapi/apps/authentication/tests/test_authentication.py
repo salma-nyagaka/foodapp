@@ -75,7 +75,7 @@ class TestAuthenticationApi(BaseTestCase):
         self.assertEqual(login_res.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             data['error'],
-            {'non_field_errors': ['Either your email or password is not right. Kindly double check them ']})
+            {'non_field_errors': ['Either your email or password is not right.Kindly double check them']})
 
     def test_get_user(self):
         """ Test get user by email"""

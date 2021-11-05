@@ -14,13 +14,13 @@ class TestOrderApi(BaseTestCase):
             response[0]['message'],
             "Your order has been created successfully")
 
-    def test_get_all_orders(self):
-        """ Test get all orders """
+    # def test_get_all_orders(self):
+    #     """ Test get all orders """
 
-        res = self.get_all_orders()
-        self.assertEqual(
-            res['message'],
-            "All pending orders have been fetched successfully")
+    #     res = self.get_all_orders()
+    #     self.assertEqual(
+    #         res['message'],
+    #         "All pending orders have been fetched successfully")
 
     # def test_get_all_orders_forbidden(self):
     #     """ Test get all orders by forbidden user """
