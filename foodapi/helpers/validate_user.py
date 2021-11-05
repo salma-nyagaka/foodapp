@@ -8,7 +8,7 @@ def validate_admin(user):
     """
     Function that checks if a user is an admin
     """
-    if user != True:
+    if user is not True:
         raise ValidationError({
             "message": error_dict['not_allowed']}
         )
@@ -18,7 +18,7 @@ def validate_attendant(user):
     """
     Function that checks if a user is a food attendant
     """
-    if user != 'FOOD_ATTENDANT':
+    if user is not 'FOOD_ATTENDANT':
         raise ValidationError({
             "message": error_dict['not_allowed']}
         )
@@ -28,7 +28,7 @@ def validate_attendant_or_admin(user):
     """
     Function that checks if a user is an admin or food attendant
     """
-    if user != 'FOOD_ATTENDANT' or 'ADMIN':
+    if user is not 'FOOD_ATTENDANT' or 'ADMIN':
         raise ValidationError({
             "message": error_dict['not_allowed']}
         )

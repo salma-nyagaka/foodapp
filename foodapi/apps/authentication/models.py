@@ -33,7 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         ('NORMAL_USER', 'normal_user'),
     )
 
-    role = models.CharField(max_length=50, choices = ROLES, null=True)
+    role = models.CharField(max_length=50, choices=ROLES, null=True)
 
     username = models.CharField(db_index=True, max_length=255, unique=True)
     email = models.EmailField(db_index=True, unique=True)
@@ -48,7 +48,6 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     # objects of this type.
     objects = UserManager()
 
-
     class Meta:
         permissions = (
             ("manage_users",
@@ -61,7 +60,6 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
              pgettext_lazy("Permission description", "Impersonate users."),
              ),
         )
-
 
     @staticmethod
     def get_user(email):

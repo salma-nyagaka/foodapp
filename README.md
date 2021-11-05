@@ -100,16 +100,19 @@ A Django web application that allowes admin to create users and menus, food atte
  #### Endpoint
 | REQUEST | DESCRIPTION  | URL  |
 | :-----: | :-: | :-: |
-| POST | User sign Up|  http://127.0.0.1:8000/users/register?is_admin=is_admin |
-| POST | User Sign In|  http://127.0.0.1:8000/users/login |
-| POST | Create a menu|  http://127.0.0.1:8001/menu/ |
-| GET | Fetch all menu items |  http://127.0.0.1:8000/menu/items |
-| GET | GET a menu item|  http://127.0.0.1:8000/menu/item/{{menu_id}} |
-| PUT | Update a menu item | http://127.0.0.1:8000/menu/item/{{menu_id}} |
-| DELETE | Delete a menu item|  http://127.0.0.1:8000/menu/item/{{menu_id}} |
-| GET | Create an order|  http://127.0.0.1:8000/order/ |
-| GET | Fetch user's orders |  http://127.0.0.1:8000/order/user |
-| GET | Fetch all orders | http://127.0.0.1:8000/order/all |
-| DELETE | Delete a order|  http://127.0.0.1:8000/surverymanager/question/{{question_id}} |
-| POST | Answer a question | http://127.0.0.1:8000/surverymanager/question/answer/ |
-| GET | Get all answers for question|  http://127.0.0.1:8000/surverymanager/question/answer/{{question_id}} |
+| POST | User sign Up|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/users/register?is_admin=is_admin |
+| POST | User Sign In|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/users/login |
+| GET | Get all users|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/users/details|
+| GET | Get a single user|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/users/details/{{user_id}} |
+| DELETE | Delete a user|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/users/details/{{user_id}} |
+| POST | Create a menu|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/menu/ |
+| GET | Fetch all menu items |  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/menu/items |
+| GET | GET a menu item|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/menu/item/{{menu_id}} |
+| PUT | Update a menu item | http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/menu/item/{{menu_id}} |
+| DELETE | Delete a menu item|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/menu/item/{{menu_id}} |
+| GET | Create an order|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/order/ |
+| GET | Fetch user's orders |  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/order/user |
+| GET | Fetch all orders | http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/order/all |
+| DELETE | Delete a order|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/surverymanager/question/{{question_id}} |
+| POST | Answer a question | http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/surverymanager/question/answer/ |
+| GET | Get all answers for question|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/surverymanager/question/answer/{{question_id}} |
