@@ -35,7 +35,6 @@ class JWTAuthentication(TokenAuthentication):
         }, secret)
         token = token.decode('utf-8')
 
-        # decode the byte type token to
         return token
 
     @staticmethod

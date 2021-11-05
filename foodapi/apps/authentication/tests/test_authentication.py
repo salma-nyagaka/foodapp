@@ -16,6 +16,24 @@ class TestAuthenticationApi(BaseTestCase):
         self.assertEqual(
             response.data['message'],
             "Your account has been created successfully")
+    
+    def test_unauthorized_user(self):
+        """ Test unauthorized user """
+
+        data = self.unauthorized_user()
+        response = json.loads(data.content)
+        self.assertEqual(data.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            response['error'],
+            "Kindly pass is_admin as key and value in params")
+
+    def test_invalid_admin_params(self):
+        """ Test create user with invalid params"""
+        data = self.invalid_params()
+        response = json.loads(data.content)
+        self.assertEqual(   
+            response['error'],
+            "You are not allowed to view this resource")
 
     def test_registration_blank_credentials(self):
         """ Test registration of a new user with no data """
@@ -35,13 +53,8 @@ class TestAuthenticationApi(BaseTestCase):
     def test_login(self):
         """ Test user login """
 
-        response = self.create_user()
+        response = self.login_user()
 
-        response = self.client.post(
-            self.login_url,
-            self.login_data,
-            format="json"
-        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(
             response.data['message'],
@@ -69,3 +82,36 @@ class TestAuthenticationApi(BaseTestCase):
         user = self.get_user_email()
         self.assertEqual(user.email,
             "admin@gmail.com")
+
+    def test_get_all_users(self):
+        """ Test to get all users """
+        response = self.get_all_users()
+
+        self.assertEqual(
+            response['message'],
+            "All users have been fetched successfully")
+
+    def test_get_one_user(self):
+        """ Test to get a single user """
+        response = self.get_one_user()
+
+        self.assertEqual(
+            response['message'],
+            "User details have been fetched successfully")
+
+    def test_get_nonexistant_user(self):
+        """ Test to get a user who does not exist"""
+        response = self.get_nonexistant_user()
+
+        self.assertEqual(
+            response['message'],
+            "User does not exist")
+
+
+    def test_delete_one_user(self):
+        """ Test to delete a single user """
+        response = self.delete_one_user()
+
+        self.assertEqual(
+            response['message'],
+            "User has been deleted successfully")
