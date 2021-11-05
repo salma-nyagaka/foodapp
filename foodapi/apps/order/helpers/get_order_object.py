@@ -30,4 +30,3 @@ def get_user_order_object(params, user_id):
         raise ValidationError({
             "message": "Kindly pass 'all_orders' or 'pending_orders' in params"
         })
-

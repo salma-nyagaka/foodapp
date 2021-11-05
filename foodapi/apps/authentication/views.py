@@ -11,10 +11,13 @@ from ...helpers.constants import SUCCESS_MESSAGE, FORBIDDEN_MESSAGE
 from ...helpers.renderers import RequestJSONRenderer
 from ...helpers.validate_user import validate_admin
 from .models import User
-from .serializers import LoginSerializer, RegistrationSerializer, UserSerializer
+from .serializers import (
+    LoginSerializer, RegistrationSerializer,
+    UserSerializer)
 from .backends import JWTAuthentication
 from .helpers.get_user_obj import get_user_object
 from .helpers.validate_params import validate_parans
+
 
 class RoleAPIView(GenericAPIView):
     """Register a new user with a role"""
@@ -38,6 +41,7 @@ class RoleAPIView(GenericAPIView):
         }
         return Response(return_message, status=status.HTTP_201_CREATED)
 
+
 class LoginAPIView(GenericAPIView):
     permission_classes = (AllowAny,)
     renderer_classes = (RequestJSONRenderer,)
@@ -58,10 +62,11 @@ class LoginAPIView(GenericAPIView):
             "username": user.username,
             "role": user.role,
         }
-        user_data['token'] = JWTAuthentication.generate_token(userdata=userdata)
+        user_data['token'] = JWTAuthentication.generate_token(
+            userdata=userdata)
 
         return_message = {
-            'message':SUCCESS_MESSAGE.format("You have logged in"),
+            'message': SUCCESS_MESSAGE.format("You have logged in"),
             "data": user_data,
             "token": user_data
         }
@@ -73,7 +78,6 @@ class AllUsersAPIView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     permission_classes = (IsAuthenticated,)
     renderer_classes = (RequestJSONRenderer,)
-
 
     def get(self, request):
         """ Method to get allusers """
@@ -119,11 +123,12 @@ class SingleUserAPIView(generics.RetrieveAPIView):
     #         serializer.is_valid(raise_exception=True)
     #         serializer.save()
     #         return_message = {
-    #             'message': SUCCESS_MESSAGE.format("User details have been updated"),
+    #             'message':
+    # SUCCESS_MESSAGE.format("User details have been updated"),
     #             "data": serializer.data
     #         }
     #         return Response(return_message, status=status.HTTP_200_OK)
-            
+
     #     return_message = {
     #         'message':FORBIDDEN_MESSAGE
     #     }
@@ -133,7 +138,7 @@ class SingleUserAPIView(generics.RetrieveAPIView):
         """ Method to delete a single User """
         is_admin = request.user.is_superuser
         validate_admin(is_admin)
-     
+
         data = get_user_object(user_id)
         data.delete()
         return_message = {

@@ -11,6 +11,5 @@ class BaseModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
-
     class Meta:
         abstract = True

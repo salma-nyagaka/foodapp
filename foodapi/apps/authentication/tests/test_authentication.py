@@ -16,7 +16,7 @@ class TestAuthenticationApi(BaseTestCase):
         self.assertEqual(
             response.data['message'],
             "Your account has been created successfully")
-    
+
     def test_unauthorized_user(self):
         """ Test unauthorized user """
 
@@ -31,7 +31,7 @@ class TestAuthenticationApi(BaseTestCase):
         """ Test create user with invalid params"""
         data = self.invalid_params()
         response = json.loads(data.content)
-        self.assertEqual(   
+        self.assertEqual(
             response['error'],
             "You are not allowed to view this resource")
 
@@ -42,13 +42,13 @@ class TestAuthenticationApi(BaseTestCase):
         res = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
- 
+
         self.assertEqual(
             res['error'],
-            {'email': ['Please fill in the email.'], 
-            'username':['Please fill in the username.'], 
-            'password': ['Please fill in the password.'], 
-            'role': ['"" is not a valid choice.']})
+            {'email': ['Please fill in the email.'],
+             'username': ['Please fill in the username.'],
+             'password': ['Please fill in the password.'],
+             'role': ['"" is not a valid choice.']})
 
     def test_login(self):
         """ Test user login """
@@ -71,7 +71,7 @@ class TestAuthenticationApi(BaseTestCase):
             format="json"
         )
         data = json.loads(login_res.content)
-      
+
         self.assertEqual(login_res.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             data['error'],
@@ -81,7 +81,7 @@ class TestAuthenticationApi(BaseTestCase):
         """ Test get user by email"""
         user = self.get_user_email()
         self.assertEqual(user.email,
-            "admin@gmail.com")
+                         "admin@gmail.com")
 
     def test_get_all_users(self):
         """ Test to get all users """
@@ -106,7 +106,6 @@ class TestAuthenticationApi(BaseTestCase):
         self.assertEqual(
             response['message'],
             "User does not exist")
-
 
     def test_delete_one_user(self):
         """ Test to delete a single user """

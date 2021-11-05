@@ -72,7 +72,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         if validated_data['role'] == 'ADMIN':
-            user = User.objects.create_user(**validated_data, is_superuser=True)  
+            user = User.objects.create_user(
+                **validated_data, is_superuser=True)
         else:
             user = User.objects.create_user(**validated_data)
         return user
@@ -104,10 +105,9 @@ class LoginSerializer(serializers.Serializer):
         # `authenticate` will return `None`. Raise an exception in this case.
         if user is None:
             raise serializers.ValidationError(
-                'Either your email or password is not right. Kindly double check '
-                'them '
+                'Either your email or password is not right.'
+                'Kindly double check them'
             )
-
 
         """
         The `validate` method should return a dictionary of validated data.

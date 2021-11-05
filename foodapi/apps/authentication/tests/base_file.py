@@ -4,6 +4,8 @@ from rest_framework.test import APIClient
 from django.test import TestCase
 
 from foodapi.apps.authentication.models import User
+
+
 class BaseTestCase(TestCase):
     """Base test file to be used by other test files in the package"""
 
@@ -14,7 +16,6 @@ class BaseTestCase(TestCase):
         self.registration_url = reverse("user_registration")
         self.login_url = reverse("user_login")
         self.all_users_url = reverse("all_users")
-
 
         # Create dummy data for testing
         self.registration_data = {
@@ -41,18 +42,18 @@ class BaseTestCase(TestCase):
         }
 
         self.login_wrong_data = {
-                "email": "admin@gmail.com",
-                "username": "admin",
-                "password": "admin123678",
-                "role": "ADMIN"
-            }
+            "email": "admin@gmail.com",
+            "username": "admin",
+            "password": "admin123678",
+            "role": "ADMIN"
+        }
 
     def create_user(self):
         """ Function to create a user"""
         response = self.client.post(
             self.registration_url,
             self.registration_data,
-            **{'QUERY_STRING':'is_admin=is_admin'},
+            **{'QUERY_STRING': 'is_admin=is_admin'},
             format="json"
         )
 
@@ -75,7 +76,7 @@ class BaseTestCase(TestCase):
         response = self.client.post(
             self.registration_url,
             self.registration_data,
-            **{'QUERY_STRING':'kkk=kkk'},
+            **{'QUERY_STRING': 'kkk=kkk'},
             format="json"
         )
 
@@ -86,7 +87,7 @@ class BaseTestCase(TestCase):
         response = self.client.post(
             self.registration_url,
             self.registration_data_no_data,
-            **{'QUERY_STRING':'is_admin=is_admin'},
+            **{'QUERY_STRING': 'is_admin=is_admin'},
             format="json"
         )
 
@@ -95,7 +96,7 @@ class BaseTestCase(TestCase):
     def get_user_email(self):
         """ Get user by email """
         response = self.create_user()
-       
+
         data = json.loads(response.content)
         user = User.objects.get(email=data['data']['email'])
 
@@ -134,7 +135,8 @@ class BaseTestCase(TestCase):
         token = json.loads(login_res.content)
         data = User.objects.all().first()
 
-        self.single_user_url =  reverse("single_user", kwargs={"user_id": data.id})
+        self.single_user_url = reverse(
+            "single_user", kwargs={"user_id": data.id})
 
         response = self.client.get(
             self.single_user_url,
@@ -144,14 +146,13 @@ class BaseTestCase(TestCase):
         menu_res = json.loads(response.content)
         return menu_res
 
-
     def get_nonexistant_user(self):
         """ Function to get a who does not exist """
 
         login_res = self.login_user()
         token = json.loads(login_res.content)
 
-        self.single_user_url =  reverse("single_user", kwargs={"user_id": 100})
+        self.single_user_url = reverse("single_user", kwargs={"user_id": 100})
 
         response = self.client.get(
             self.single_user_url,
@@ -168,7 +169,8 @@ class BaseTestCase(TestCase):
         token = json.loads(login_res.content)
         data = User.objects.all().first()
 
-        self.single_user_url =  reverse("single_user", kwargs={"user_id": data.id})
+        self.single_user_url = reverse(
+            "single_user", kwargs={"user_id": data.id})
 
         response = self.client.delete(
             self.single_user_url,
@@ -177,4 +179,3 @@ class BaseTestCase(TestCase):
         )
         menu_res = json.loads(response.content)
         return menu_res
-

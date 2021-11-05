@@ -37,7 +37,6 @@ class UsersOrdersPIView(generics.RetrieveAPIView):
     renderer_classes = (RequestJSONRenderer,)
     serializer_class = SingleOrderSerializer
 
-
     def get(self, request):
         """ Method to get a user's orders"""
         user_id = request.user.id
@@ -59,7 +58,6 @@ class AllOrdersPIView(generics.RetrieveAPIView):
     renderer_classes = (RequestJSONRenderer,)
     serializer_class = SingleOrderSerializer
 
-
     def get(self, request):
         """ Method to get all orders"""
         user_role = request.user.role
@@ -72,6 +70,7 @@ class AllOrdersPIView(generics.RetrieveAPIView):
             "data": serializer.data
         }
         return Response(return_message, status=status.HTTP_200_OK)
+
 
 class SingleOrderAPIView(generics.RetrieveAPIView):
     """ Class to update an order status"""

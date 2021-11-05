@@ -88,7 +88,6 @@ class SingleMenuAPIView(generics.RetrieveAPIView):
             "data": serializer.data
         }
         return Response(return_message, status=status.HTTP_200_OK)
-            
 
     def delete(self, request, menu_id):
         """ Method to delete a single menu item """

@@ -75,7 +75,7 @@ class BaseTestCase(TestCase):
         attendant_response = self.client.post(
             self.registration_url,
             self.attendant_registration_data,
-            **{'QUERY_STRING':'is_admin=is_admin'},
+            **{'QUERY_STRING': 'is_admin=is_admin'},
             format="json"
         )
         return admin_response, attendant_response
@@ -89,33 +89,29 @@ class BaseTestCase(TestCase):
         admin_user_data = admin_json_data['data']
         admin_user_data['password'] = 'admin123'
 
-
         attedant_json_data = json.loads(attendant_login_data.content)
         attedant_user_data = attedant_json_data['data']
         attedant_user_data['password'] = 'attendant123'
 
-   
         admin_response = self.client.post(
             self.login_url,
             admin_json_data['data'],
             format="json"
-                )
+        )
         attendant_response = self.client.post(
             self.login_url,
             attedant_json_data['data'],
             format="json"
 
-                )
-       
+        )
+
         admin_res_data = json.loads(admin_response.content)
         attendant_res_data = json.loads(attendant_response.content)
-      
 
         admin_token = admin_res_data['data']['token']
         attendant_token = attendant_res_data['data']['token']
 
         return admin_token, attendant_token
-
 
     def create_menu(self):
         """ Function to create menu"""
@@ -132,7 +128,7 @@ class BaseTestCase(TestCase):
         return menu_res, token
 
     # def create_menu_forbidden(self):
-    #     """ Function to create menu by 
+    #     """ Function to create menu by
     #     forbidden user"""
     #     token = self.create_menu()
     #     response = self.client.post(
@@ -141,7 +137,7 @@ class BaseTestCase(TestCase):
     #         HTTP_AUTHORIZATION="Bearer {}".format(token[1][0]),
     #         format="json"
     #     )
-    
+
     #     menu_res = json.loads(response.content)
 
     #     return menu_res, token
@@ -188,7 +184,7 @@ class BaseTestCase(TestCase):
         return menu_res
 
     def get_menu_does_not_exist(self):
-        """ Function to get a single menu item 
+        """ Function to get a single menu item
         that does not exist """
         menu = self.create_menu()
 
@@ -221,7 +217,7 @@ class BaseTestCase(TestCase):
     def delete_single_menu(self):
         """ Function to delete a single menu item """
         menu = self.create_menu()
-    
+
         data = Menu.objects.all().first()
         self.single_menu_url = reverse(
             "single_menu_item", kwargs={'menu_id': data.id})

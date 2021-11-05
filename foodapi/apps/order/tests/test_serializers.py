@@ -14,6 +14,5 @@ class TestOrderApi(BaseTestCase):
         serializer = OrderSerializer(data=order_data[0])
 
         self.assertFalse(serializer.is_valid())
-        # import pdb
-        # pdb.set_trace()
+
         self.assertEqual(set(serializer.errors), set(['user', 'order']))
