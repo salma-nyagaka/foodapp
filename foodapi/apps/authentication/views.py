@@ -114,26 +114,6 @@ class SingleUserAPIView(generics.RetrieveAPIView):
         }
         return Response(return_message, status=status.HTTP_201_CREATED)
 
-    # def put(self, request, user_id):
-    #     """ Method to update a single user """
-    #     is_admin = request.user.is_superuser
-    #     if is_admin:
-    #         question_obj = get_user_object(user_id)
-    #         serializer = self.serializer_class(
-    #             question_obj, data=request.data, partial=True)
-    #         serializer.is_valid(raise_exception=True)
-    #         serializer.save()
-    #         return_message = {
-    #             'message':
-    # SUCCESS_MESSAGE.format("User details have been updated"),
-    #             "data": serializer.data
-    #         }
-    #         return Response(return_message, status=status.HTTP_200_OK)
-
-    #     return_message = {
-    #         'message':FORBIDDEN_MESSAGE
-    #     }
-    #     return Response(return_message, status=status.HTTP_403_FORBIDDEN)
 
     def delete(self, request, user_id):
         """ Method to delete a single User """
