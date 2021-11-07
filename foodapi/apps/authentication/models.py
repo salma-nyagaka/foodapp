@@ -29,7 +29,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     ROLES = (
         ('ADMIN', 'admin'),
-        ('FOOD_ATTENDANT', 'foo_attendant'),
+        ('FOOD_ATTENDANT', 'food_attendant'),
         ('NORMAL_USER', 'normal_user'),
     )
 

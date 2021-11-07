@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -8,8 +8,8 @@ from ...helpers.renderers import RequestJSONRenderer
 from ...helpers.validate_user import validate_attendant, validate_attendant_or_admin
 from .serializers import SingleOrderSerializer, SingleDetailsOrderSerializer, OrderSerializer
 from .helpers.get_order_object import get_order_object, get_user_order_object
-
-
+from.helpers.update_status import update_status
+from .models import Order
 class OrderAPIView(generics.GenericAPIView):
     """ Class to add order items """
     permission_classes = (IsAuthenticated,)
@@ -61,8 +61,9 @@ class AllOrdersPIView(generics.RetrieveAPIView):
     def get(self, request):
         """ Method to get all orders"""
         user_role = request.user.role
+        params = request.query_params
         validate_attendant_or_admin(user_role)
-        data = get_order_object()
+        data = get_order_object(params)
         serializer = self.serializer_class(data, many=True)
         return_message = {
             'message':
@@ -72,23 +73,23 @@ class AllOrdersPIView(generics.RetrieveAPIView):
         return Response(return_message, status=status.HTTP_200_OK)
 
 
-class SingleOrderAPIView(generics.RetrieveAPIView):
+class SingleOrderAPIView(generics.RetrieveUpdateAPIView):
     """ Class to update an order status"""
-    serializer_class = SingleDetailsOrderSerializer
     permission_classes = (IsAuthenticated,)
-    # queryset = Order.objects.all()
+    serializer_class = SingleDetailsOrderSerializer
 
     def update(self, request, pk):
         """ Method to update order status by food attendant"""
         user_role = request.user.role
         validate_attendant(user_role)
-        data = get_order_object(pk)
-        serializer = self.serializer_class(data, partial=True)
-        serializer.save()
+        data = Order.objects.get(id=pk)
+        params = request.query_params
+        status_update = update_status(data,params)
+        serializer_data = self.serializer_class(status_update)
 
         return_message = {
             'message':
-            SUCCESS_MESSAGE.format("Menu item has been updated"),
-            "data": "k"
+            SUCCESS_MESSAGE.format("Order status has been updated"),
+            "data": serializer_data.data
         }
         return Response(return_message, status=status.HTTP_201_CREATED)

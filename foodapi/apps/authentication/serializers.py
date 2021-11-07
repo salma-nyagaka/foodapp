@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate
-
 from rest_framework import serializers, validators
 from rest_framework.fields import USE_READONLYFIELD
+from rest_framework.serializers import ValidationError
 from rest_framework.validators import UniqueValidator
 
+from foodapi.helpers.validate_user import validate_admin
 from .models import User
 
 
@@ -50,16 +51,15 @@ class RegistrationSerializer(serializers.ModelSerializer):
     )
 
     # Ensure passwords are at least 8 characters long,
-    # at least one letter and at least one number
     password = serializers.RegexField(
-        regex="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$",
+        regex="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$",
         max_length=128,
         write_only=True,
         error_messages={
-            'required': 'Password is required',
             'max_length': 'Password cannot be more than 128 characters',
-            'min_length': 'Password must have at least 7 characters',
-            'invalid': 'Password must have a number and a letter',
+            'invalid': 'Password must have a minimum of '
+                       'eight characters at least one letter'
+                       ' and one number'
         }
     )
     # token = serializers.SerializerMethodField()
@@ -71,11 +71,17 @@ class RegistrationSerializer(serializers.ModelSerializer):
         fields = ['email', 'username', 'password', 'role']
 
     def create(self, validated_data):
-        if validated_data['role'] == 'ADMIN':
-            user = User.objects.create_user(
-                **validated_data, is_superuser=True)
+        if 'role' in validated_data:
+            if validated_data['role'] == 'ADMIN':
+                user = User.objects.create_user(
+                    **validated_data, is_superuser=True)
+            else:
+                user = User.objects.create_user(**validated_data)
         else:
-            user = User.objects.create_user(**validated_data)
+            raise ValidationError({
+                "role": "Please fill in the role."
+            })
+
         return user
 
 

@@ -18,7 +18,7 @@ def validate_attendant(user):
     """
     Function that checks if a user is a food attendant
     """
-    if user is not 'FOOD_ATTENDANT':
+    if user is 'NORMAL_USER':
         raise ValidationError({
             "message": error_dict['not_allowed']}
         )
@@ -28,7 +28,9 @@ def validate_attendant_or_admin(user):
     """
     Function that checks if a user is an admin or food attendant
     """
-    if user is not 'FOOD_ATTENDANT' or 'ADMIN':
+    # import pdb
+    # pdb.set_trace()
+    if user is 'NORMAL_USER':
         raise ValidationError({
             "message": error_dict['not_allowed']}
         )

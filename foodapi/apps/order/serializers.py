@@ -26,4 +26,4 @@ class SingleDetailsOrderSerializer(serializers.ModelSerializer):
     """ Serialize single  data"""
     class Meta:
         model = Order
-        fields = ('status')
+        fields = ('__all__')

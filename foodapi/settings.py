@@ -60,10 +60,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
-    '0.0.0.0:8000',
-    'localhost:8000',
-    'localhost:3000',
-    'localhost:8000',
+    'http://127.0.0.1:8000',
     'http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com'
 )
 

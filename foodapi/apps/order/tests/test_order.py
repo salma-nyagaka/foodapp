@@ -14,21 +14,13 @@ class TestOrderApi(BaseTestCase):
             response[0]['message'],
             "Your order has been created successfully")
 
-    # def test_get_all_orders(self):
-    #     """ Test get all orders """
+    def test_get_all_orders(self):
+        """ Test get all orders """
 
-    #     res = self.get_all_orders()
-    #     self.assertEqual(
-    #         res['message'],
-    #         "All pending orders have been fetched successfully")
-
-    # def test_get_all_orders_forbidden(self):
-    #     """ Test get all orders by forbidden user """
-
-    #     res= self.get_all_orders_forbidden()
-    #     self.assertEqual(
-    #         res['error'],
-    #         "You are not allowed to perform this action")
+        res = self.get_all_orders()
+        self.assertEqual(
+            res['message'],
+            "All pending orders have been fetched successfully")
 
     def test_a_users_orders(self):
         """ Test get a user's orders """
@@ -52,3 +44,11 @@ class TestOrderApi(BaseTestCase):
         self.assertEqual(
             res_pending['error'],
             "Kindly pass 'all_orders' or 'pending_orders' in params")
+
+    def test_update_order(self):
+        """ Test to update an order """
+
+        response = self.update_order()
+        self.assertEqual(
+            response['message'],
+            "Order status has been updated successfully")

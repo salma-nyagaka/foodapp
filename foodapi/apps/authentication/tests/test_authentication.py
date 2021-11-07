@@ -15,7 +15,7 @@ class TestAuthenticationApi(BaseTestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(
             response.data['message'],
-            "Your account has been created successfully")
+            "User account has been created successfully")
 
     def test_unauthorized_user(self):
         """ Test unauthorized user """

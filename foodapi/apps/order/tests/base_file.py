@@ -6,6 +6,7 @@ from django.test import TestCase
 from foodapi.apps.menu.models import Menu
 from foodapi.apps.authentication.models import User
 from foodapi.apps.order.helpers.get_order_object import get_order_object
+from foodapi.apps.order.models import Order
 
 
 class BaseTestCase(TestCase):
@@ -186,6 +187,8 @@ class BaseTestCase(TestCase):
         response = self.client.get(
             self.all_orders_url,
             HTTP_AUTHORIZATION="Bearer {}".format(order[2][1][1]),
+            **{'QUERY_STRING': 'all_orders=all_orders'},
+
             format="json"
         )
         menu_res = json.loads(response.content)
@@ -242,3 +245,19 @@ class BaseTestCase(TestCase):
         res_all = json.loads(response_all.content)
         res_pending = json.loads(response_pending.content)
         return res_all, res_pending
+
+    def update_order(self):
+        """ Test to update an order """
+
+        order = self.create_order()
+        order_obj = Order.objects.all().first()
+        self.update_url =  reverse("update_single_order_item", kwargs={'pk': order_obj.id})
+        response = self.client.put(
+            self.update_url,
+            HTTP_AUTHORIZATION="Bearer {}".format(order[2][1][1]),
+            **{'QUERY_STRING': 'all_orders=all_orders'},
+
+            format="json"
+        )
+        order = json.loads(response.content)
+        return order

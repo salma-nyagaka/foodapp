@@ -36,7 +36,7 @@ class RoleAPIView(GenericAPIView):
 
         return_message = {
             'message':
-            SUCCESS_MESSAGE.format("Your account has been created"),
+            SUCCESS_MESSAGE.format("User account has been created"),
             "data": serializer.data
         }
         return Response(return_message, status=status.HTTP_201_CREATED)
@@ -64,6 +64,7 @@ class LoginAPIView(GenericAPIView):
         }
         user_data['token'] = JWTAuthentication.generate_token(
             userdata=userdata)
+        user_data['role'] = user.role
 
         return_message = {
             'message': SUCCESS_MESSAGE.format("You have logged in"),
