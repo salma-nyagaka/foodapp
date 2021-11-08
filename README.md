@@ -97,7 +97,7 @@ A Django web application that allowes admin to create users and menus, food atte
     ```
     pytest
     ```
- #### Insstructions 
+ #### Instructions 
  - Log in as an admin to add users, get all users, get a single user, create a menu, 
  update a menu item, get all users
  - Log in as a food attendant to get all orders and update order status
