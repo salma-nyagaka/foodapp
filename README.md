@@ -65,12 +65,12 @@ A Django web application that allowes admin to create users and menus, food atte
 -   Create a .env file and the following configurations
 
     ```
-        export DB_NAME="test4"
-        export DB_USER="test4"
+        export DB_NAME="DB_NAME"
+        export DB_USER="DB_USER"
         export DB_HOST="localhost"
-        export DB_PASSWORD="test4"
+        export DB_PASSWORD="DB_PASSWORD"
         export SECRET_KEY="#8-9*p&2kor^he5v2$tbm$q5x3+nh@q&^9zev2em5e$pr2=qf$"
-        export DJANGO_SETTINGS_MODULE=survey.settings
+        export DJANGO_SETTINGS_MODULE=foodapi.settings
 
     ```
 
