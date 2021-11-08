@@ -123,19 +123,19 @@ A Django web application that allowes admin to create users and menus, food atte
  #### Endpoints
 | REQUEST | DESCRIPTION  | URL  |
 | :-----: | :-: | :-: |
-| POST | User sign Up|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/users/register?is_admin=is_admin |
-| POST | User Sign In|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/users/login |
-| GET | Get all users|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/users/details|
-| GET | Get a single user|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/users/details/{{user_id}} |
-| DELETE | Delete a user|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/users/details/{{user_id}} |
-| POST | Create a menu|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/menu/ |
-| GET | Fetch all menu items |  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/menu/items |
-| GET | GET a menu item|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/menu/item/{{menu_id}} |
-| PUT | Update a menu item | http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/menu/item/{{menu_id}} |
-| DELETE | Delete a menu item|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/menu/item/{{menu_id}} |
-| GET | Create an order|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/order/ |
-| GET | Fetch user's orders |  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/order/user |
-| GET | Fetch all orders | http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/order/all |
-| DELETE | Delete a order|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/surverymanager/question/{{question_id}} |
-| POST | Answer a question | http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/surverymanager/question/answer/ |
-| GET | Get all answers for question|  http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com/surverymanager/question/answer/{{question_id}} |
+| POST | User sign Up|  http://foodapp.link/users/register?is_admin=is_admin |
+| POST | User Sign In|  http://foodapp.link/users/login |
+| GET | Get all users|  http://foodapp.link/users/details|
+| GET | Get a single user|  http://foodapp.link/users/details/{{user_id}} |
+| DELETE | Delete a user|  http://foodapp.link/users/details/{{user_id}} |
+| POST | Create a menu|  http://foodapp.link/menu/ |
+| GET | Fetch all menu items |  http://foodapp.link/menu/items |
+| GET | GET a menu item|  http://foodapp.link/menu/item/{{menu_id}} |
+| PUT | Update a menu item | http://foodapp.link/menu/item/{{menu_id}} |
+| DELETE | Delete a menu item|  http://foodapp.link/menu/item/{{menu_id}} |
+| GET | Create an order|  http://foodapp.link/order/ |
+| GET | Fetch user's orders |  http://foodapp.link/order/user |
+| GET | Fetch all orders | http://foodapp.link/order/all |
+| DELETE | Delete a order|  http://foodapp.link/surverymanager/question/{{question_id}} |
+| POST | Answer a question | http://foodapp.link/surverymanager/question/answer/ |
+| GET | Get all answers for question|  http://foodapp.link/surverymanager/question/answer/{{question_id}} |
