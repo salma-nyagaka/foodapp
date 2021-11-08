@@ -100,7 +100,25 @@ A Django web application that allowes admin to create users and menus, food atte
  #### Instructions 
  - Log in as an admin to add users, get all users, get a single user, create a menu, 
  update a menu item, get all users
+
+   ```
+    "email": "adminuser@gmail.com",
+    "password": "admin123"
+    ```
  - Log in as a food attendant to get all orders and update order status
+
+    ```
+    "email": "mary@gmail.com",
+    "password": "mary12345"
+    ```
+
+ - Log in as a normal user to view past orders
+
+    ```
+    "email": "john@gmail.com",
+    "password": "john12345"
+    ```
+ 
 
  #### Endpoints
 | REQUEST | DESCRIPTION  | URL  |
