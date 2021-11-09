@@ -123,19 +123,19 @@ A Django web application that allowes admin to create users and menus, food atte
  #### Endpoints
 | REQUEST | DESCRIPTION  | URL  |
 | :-----: | :-: | :-: |
-| POST | User sign Up|  http://foodapp.link/users/register?is_admin=is_admin |
-| POST | User Sign In|  http://foodapp.link/users/login |
-| GET | Get all users|  http://foodapp.link/users/details|
-| GET | Get a single user|  http://foodapp.link/users/details/{{user_id}} |
-| DELETE | Delete a user|  http://foodapp.link/users/details/{{user_id}} |
-| POST | Create a menu|  http://foodapp.link/menu/ |
-| GET | Fetch all menu items |  http://foodapp.link/menu/items |
-| GET | GET a menu item|  http://foodapp.link/menu/item/{{menu_id}} |
-| PUT | Update a menu item | http://foodapp.link/menu/item/{{menu_id}} |
-| DELETE | Delete a menu item|  http://foodapp.link/menu/item/{{menu_id}} |
-| GET | Create an order|  http://foodapp.link/order/ |
-| GET | Fetch user's orders |  http://foodapp.link/order/user |
-| GET | Fetch all orders | http://foodapp.link/order/all |
-| DELETE | Delete a order|  http://foodapp.link/surverymanager/question/{{question_id}} |
-| POST | Answer a question | http://foodapp.link/surverymanager/question/answer/ |
-| GET | Get all answers for question|  http://foodapp.link/surverymanager/question/answer/{{question_id}} |
+| POST | User sign Up|  https://sapplication.link/users/register?is_admin=is_admin |
+| POST | User Sign In|  https://sapplication.link/users/login |
+| GET | Get all users|  https://sapplication.link/users/details|
+| GET | Get a single user|  https://sapplication.link/users/details/{{user_id}} |
+| DELETE | Delete a user|  https://sapplication.link/users/details/{{user_id}} |
+| POST | Create a menu|  https://sapplication.link/menu/ |
+| GET | Fetch all menu items |  https://sapplication.link/menu/items |
+| GET | GET a menu item|  https://sapplication.link/menu/item/{{menu_id}} |
+| PUT | Update a menu item | https://sapplication.link/menu/item/{{menu_id}} |
+| DELETE | Delete a menu item|  https://sapplication.link/menu/item/{{menu_id}} |
+| GET | Create an order|  https://sapplication.link/order/ |
+| GET | Fetch user's orders |  https://sapplication.link/order/user |
+| GET | Fetch all orders | https://sapplication.link/order/all |
+| DELETE | Delete a order|  https://sapplication.link/surverymanager/question/{{question_id}} |
+| POST | Answer a question | https://sapplication.link/surverymanager/question/answer/ |
+| GET | Get all answers for question|  https://sapplication.link/surverymanager/question/answer/{{question_id}} |
