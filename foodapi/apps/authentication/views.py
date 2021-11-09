@@ -65,6 +65,7 @@ class LoginAPIView(GenericAPIView):
         user_data['token'] = JWTAuthentication.generate_token(
             userdata=userdata)
         user_data['role'] = user.role
+        user_data['id'] = user.id
 
         return_message = {
             'message': SUCCESS_MESSAGE.format("You have logged in"),

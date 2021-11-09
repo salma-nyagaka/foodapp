@@ -96,7 +96,35 @@ A Django web application that allowes admin to create users and menus, food atte
 
     ```
     pytest
-    ```
+
+
+### Description
+A backend API build in DRF that enableS
+     
+###### An admin to
+
+```
+- Create Users
+- Assign roles to users
+- Create food menus
+- View all orders made
+- View all users
+```
+
+###### A food attendant to
+
+```
+- Get all pending orders and update an order status
+```
+
+###### A normal user to
+
+```
+- Fetch all menu items
+- Create an order
+- View order history
+```
+   ```
  #### Instructions 
  - Log in as an admin to add users, get all users, get a single user, create a menu, 
  update a menu item, get all users
