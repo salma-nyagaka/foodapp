@@ -61,7 +61,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:8000',
-    'http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com'
+    'http://127.0.0.1:3000',
+    'http://ec2-18-203-249-202.eu-west-1.compute.amazonaws.com',
+    'https://develop.d37lta4ehey90q.amplifyapp.com'
 )
 
 
