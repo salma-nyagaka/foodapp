@@ -124,8 +124,9 @@ A backend API build in DRF that enableS
 - Create an order
 - View order history
 ```
-   ```
- #### Instructions 
+
+
+#### Instructions 
  - Log in as an admin to add users, get all users, get a single user, create a menu, 
  update a menu item, get all users
 
